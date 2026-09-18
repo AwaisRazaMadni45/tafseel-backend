@@ -1,6 +1,4 @@
 // Vercel Serverless Entry Point
-// Vercel runs this file as a serverless function.
-// We export the Express app — Vercel handles the HTTP lifecycle.
 
 import 'dotenv/config';
 import express from 'express';
@@ -15,21 +13,17 @@ import contactRoutes from '../src/routes/contactRoutes.js';
 import adminRoutes from '../src/routes/adminRoutes.js';
 import imageUploadRoutes from '../src/routes/imageUploadRoutes.js';
 
-// Connect to MongoDB (Mongoose caches the connection across warm invocations)
-connectDatabase();
-
 const app = express();
 
-// CORS — allow the frontend Vercel URL and localhost for dev
+// CORS
 const allowedOrigins = [
-  process.env.CLIENT_URL,          // e.g. https://tafseel.vercel.app
-  'http://localhost:5173',          // Vite dev server
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
 ].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (curl, Postman, same-origin SSR)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
       callback(new Error(`CORS: origin ${origin} not allowed`));
@@ -40,6 +34,16 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware: har request se pehle MongoDB connect karo (cached rahega)
+app.use(async (req, res, next) => {
+  try {
+    await connectDatabase();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get('/', (req, res) => {
   res.json({ message: 'Tafseel API is running on Vercel' });
@@ -55,5 +59,4 @@ app.use('/api/upload', imageUploadRoutes);
 app.use(routeNotFound);
 app.use(handleErrors);
 
-// Export for Vercel — do NOT call app.listen() here
 export default app;
