@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: tafseel-backend
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false   # Set manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: CLIENT_URL
+        sync: false   # Set to your Vercel frontend URL after deploy
+      - key: ADMIN_SECRET_KEY
+        sync: false
