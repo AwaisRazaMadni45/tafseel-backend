@@ -59,3 +59,18 @@ export const deleteProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+// PATCH /api/products/:id/view (public) — storefront calls this when product is opened
+export const incrementViews = async (req, res, next) => {
+  try {
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+    res.json({ views: product.views });
+  } catch (error) {
+    next(error);
+  }
+};

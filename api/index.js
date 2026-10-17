@@ -11,14 +11,17 @@ import galleryRoutes from '../src/routes/galleryRoutes.js';
 import reviewRoutes from '../src/routes/reviewRoutes.js';
 import contactRoutes from '../src/routes/contactRoutes.js';
 import adminRoutes from '../src/routes/adminRoutes.js';
+import orderRoutes from '../src/routes/orderRoutes.js';
 import imageUploadRoutes from '../src/routes/imageUploadRoutes.js';
 
 const app = express();
 
-// CORS
+// CORS — storefront + admin panel origins
 const allowedOrigins = [
-  process.env.CLIENT_URL,
+  process.env.CLIENT_URL,   // storefront Vercel URL
+  process.env.ADMIN_URL,    // admin panel Vercel URL (set after admin panel deploy)
   'http://localhost:5173',
+  'http://localhost:5174',
 ].filter(Boolean);
 
 app.use(
@@ -50,11 +53,12 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/products', productRoutes);
-app.use('/api/gallery', galleryRoutes);
-app.use('/api/reviews', reviewRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api/upload', imageUploadRoutes);
+app.use('/api/gallery',  galleryRoutes);
+app.use('/api/reviews',  reviewRoutes);
+app.use('/api/contact',  contactRoutes);
+app.use('/api/admin',    adminRoutes);
+app.use('/api/orders',   orderRoutes);
+app.use('/api/upload',   imageUploadRoutes);
 
 app.use(routeNotFound);
 app.use(handleErrors);
