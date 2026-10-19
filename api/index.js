@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.json({ message: 'Tafseel API is running on Vercel' });
+  res.json({ message: 'Tafseel API is running on Vercel - v2' });
 });
 
 app.use('/api/products', productRoutes);
