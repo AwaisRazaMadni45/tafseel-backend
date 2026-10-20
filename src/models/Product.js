@@ -10,12 +10,12 @@ const productSchema = new mongoose.Schema(
       enum: ['sofas', 'curtains', 'majlis'],
     },
     name: {
-      en: { type: String, required: true, trim: true },
-      ar: { type: String, required: true, trim: true },
+      en: { type: String, required: false, trim: true, default: 'Untitled' },
+      ar: { type: String, required: false, trim: true, default: 'بدون عنوان' },
     },
     description: {
-      en: { type: String, required: true },
-      ar: { type: String, required: true },
+      en: { type: String, required: false, default: '-' },
+      ar: { type: String, required: false, default: '-' },
     },
     images: {
       type: [String], // array of image URLs
