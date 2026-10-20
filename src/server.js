@@ -13,6 +13,7 @@ import reviewRoutes from './routes/reviewRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import newsletterRoutes from './routes/newsletterRoutes.js';
 import imageUploadRoutes from './routes/imageUploadRoutes.js';
 
 connectDatabase();
@@ -50,8 +51,9 @@ app.use('/api/gallery',  galleryRoutes);
 app.use('/api/reviews',  reviewRoutes);
 app.use('/api/contact',  contactRoutes);
 app.use('/api/admin',    adminRoutes);
-app.use('/api/orders',   orderRoutes);
-app.use('/api/upload',   imageUploadRoutes);
+app.use('/api/orders',      orderRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/upload',     imageUploadRoutes);
 
 app.use(routeNotFound);
 app.use(handleErrors);

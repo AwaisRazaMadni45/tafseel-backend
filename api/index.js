@@ -12,6 +12,7 @@ import reviewRoutes from '../src/routes/reviewRoutes.js';
 import contactRoutes from '../src/routes/contactRoutes.js';
 import adminRoutes from '../src/routes/adminRoutes.js';
 import orderRoutes from '../src/routes/orderRoutes.js';
+import newsletterRoutes from '../src/routes/newsletterRoutes.js';
 import imageUploadRoutes from '../src/routes/imageUploadRoutes.js';
 
 const app = express();
@@ -57,8 +58,9 @@ app.use('/api/gallery',  galleryRoutes);
 app.use('/api/reviews',  reviewRoutes);
 app.use('/api/contact',  contactRoutes);
 app.use('/api/admin',    adminRoutes);
-app.use('/api/orders',   orderRoutes);
-app.use('/api/upload',   imageUploadRoutes);
+app.use('/api/orders',      orderRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/upload',     imageUploadRoutes);
 
 app.use(routeNotFound);
 app.use(handleErrors);
